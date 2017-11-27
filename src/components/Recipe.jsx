@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
+import Ingredient from './Ingredient';
 
 class Recipe extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.toggleCompleted = this.toggleCompleted.bind(this);
 
     this.state = {
-      ingredients: this.props.recipe.ingredients
-    }
+      ingredients: this.props.recipe.ingredients,
+    };
   }
 
   // state = {
@@ -38,29 +39,30 @@ class Recipe extends Component {
         <div id={details.key} className="ingredient-list">
           <div className="row">
             <div className="col s12 m6">
+              <button className="btn btn-danger" onClick={() => this.props.removeRecipe(this.props.index)}>
+                Remove Recipe
+              </button>
               <ul className="collection with-header">
                 <li className="collection-header">
-                  <h4>
-                    {details.name}
-                  </h4>
+                  <h4>{details.name}</h4>
                 </li>
                 <ReactCSSTransitionGroup
                   transitionName="ingredient-list"
                   transitionEnterTimeout={400}
                   transitionLeaveTimeout={400}
                 >
-                {
-                  this.props.recipe.ingredients.map((ingredient, index) => {
+                  {this.props.recipe.ingredients.map((ingredient, index) => {
                     if (!ingredient.completed) {
                       return (
-                        <li className="collection-item" key={index} onClick={() => this.toggleCompleted(index) }>
-                          {ingredient.ingredientName}
-                        </li>
-                      )
+                        <Ingredient
+                          ingredient={ingredient}
+                          onClick={() => this.toggleCompleted(index)}
+                          key={index}
+                        />
+                      );
                     }
-                    return null
-                  })
-                }
+                    return null;
+                  })}
                 </ReactCSSTransitionGroup>
               </ul>
             </div>
@@ -76,32 +78,33 @@ class Recipe extends Component {
                   transitionEnterTimeout={400}
                   transitionLeaveTimeout={400}
                 >
-                {this.props.recipe.ingredients.map((ingredient, index) => {
-                  if (ingredient.completed) {
-                    return (
-                        <li className="collection-item" key={index} onClick={() => this.toggleCompleted(index) }>
-                          {ingredient.ingredientName}
-                        </li>
-                      )
+                  {this.props.recipe.ingredients.map((ingredient, index) => {
+                    if (ingredient.completed) {
+                      return (
+                        <Ingredient
+                          ingredient={ingredient}
+                          onClick={() => this.toggleCompleted(index)}
+                          key={index}
+                        />
+                      );
                     }
                     return null;
-                  })
-                }
+                  })}
                 </ReactCSSTransitionGroup>
               </ul>
             </div>
           </div>
         </div>
       );
-    } else {
-      return null;
     }
+    // return nothing if recipe isn't active
+    return null;
   }
 }
 
 Recipe.propTypes = {
   recipe: PropTypes.object.isRequired,
-  activeRecipe: PropTypes.number.isRequired
-}
+  activeRecipe: PropTypes.number.isRequired,
+};
 
 export default Recipe;

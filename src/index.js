@@ -16,7 +16,7 @@ import LoginPage from './components/LoginPage';
 
 const Root = () => {
   return (
-    <Router basename="/meal-prep-sunday/">
+    <Router>
       <div>
         {/* Path to main app page */}
         <Route exact path='/' component={App} />

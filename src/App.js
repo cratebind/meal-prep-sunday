@@ -8,7 +8,6 @@ import AppBar from './components/AppBar';
 
 // custom React components
 import Recipe from './components/Recipe';
-// import List from './components/List';
 import Sidebar from './components/Sidebar';
 import AddRecipeForm from './components/AddRecipeForm';
 
@@ -18,11 +17,14 @@ class App extends Component {
 
     this.changeRecipe = this.changeRecipe.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
+    this.toggleView = this.toggleView.bind(this);
+    this.removeRecipe = this.removeRecipe.bind(this);
   }
 
   state = {
     recipes: [],
     activeRecipe: -1,
+    recipeView: 'active'
   }
 
   componentWillMount() {
@@ -35,7 +37,11 @@ class App extends Component {
   }
 
   changeRecipe(newRecipe) {
+    // change active recipe
     this.setState({ activeRecipe: parseInt(newRecipe) });
+    
+    // change view to recipe on mobile
+    this.toggleView();
   }
 
   addRecipe(newRecipe) {
@@ -45,7 +51,30 @@ class App extends Component {
 
     recipes.push(newRecipe);
 
-    this.setState({ recipes })
+    this.setState({ recipes });
+  }
+
+  removeRecipe(recipeIndex) {
+    if (recipeIndex) {
+      const recipes = this.state.recipes;
+  
+      recipes.splice(recipeIndex, 1);
+  
+      this.setState({ recipes });
+    }
+  }
+
+  toggleView() {
+
+    let recipeView;
+
+    if (this.state.recipeView == 'active') {
+      recipeView = 'inactive';
+    } else {
+      recipeView = 'active';
+    }
+
+    this.setState({ recipeView: recipeView });
   }
 
   render() {
@@ -54,7 +83,7 @@ class App extends Component {
         <AppBar />
         <div className="App">
           <div className="fluid-container">
-            <div className="row main-view">
+            <div className={`row main-view ${this.state.recipeView}`}>
               <div className="col s12 m3 tab-section">
                 <Sidebar
                   recipes={this.state.recipes}
@@ -62,7 +91,7 @@ class App extends Component {
                 />
               </div>
               <div className="col s12 m9 content-section">
-                <div className="tab-view-button">
+                <div className="tab-view-button" onClick={() => this.toggleView()}>
                   <i className="material-icons">arrow_back</i>
                   <div>Back</div>
                 </div>
@@ -77,6 +106,7 @@ class App extends Component {
                     activeRecipe={this.state.activeRecipe}
                     recipe={this.state.recipes[key]}
                     changeRecipe={this.changeRecipe}
+                    removeRecipe={this.removeRecipe}
                   />
                 ))}
               </div>
