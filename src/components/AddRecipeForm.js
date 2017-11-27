@@ -18,15 +18,16 @@ class AddRecipeForm extends Component {
 
     const ingredientArray = [];
 
-    const ingredients = this.state.ingredients.forEach(ingredient => {
+    this.state.ingredients.forEach(ingredient => {
       ingredientArray.push({
-        ingredientName: ingredient
+        ingredientName: ingredient,
+        completed: false
       });
     });
 
     const newRecipe = {
       name: this.recipeName.value,
-      ingredients: ingredientArray
+      ingredients: ingredientArray,
     }
 
     if (newRecipe.name && newRecipe.ingredients) {
@@ -48,72 +49,75 @@ class AddRecipeForm extends Component {
   }
 
   render() {
-    return (
-      <div id="new-recipe" className="col s12 active">
-        <form onSubmit={(e) => this.createRecipe(e)}>
-          <div className="row">
-            <div className="input-field col s12 m6">
-              <label>Recipe Name</label>
-              <input ref={(input) => this.recipeName = input} type="text" />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col s12 m6">
-              <label htmlFor="chips">Ingredients</label>
-              <div className="add-ingredient-row">
-                <input ref={(input) => this.newIngredient = input} type="text" placeholder="Enter Ingredients"/>
-                <button
-                    className="btn waves-effect waves-light"
-                    id="add-ingredient-button"
-                    onClick={(e) => this.addIngredient(e)}
-                  >
-                  Add
-                </button>
+    if (this.props.activeRecipe === -1) {
+      return (
+        <div id="new-recipe" className="col s12 active">
+          <form onSubmit={(e) => this.createRecipe(e)}>
+            <div className="row">
+              <div className="input-field col s12 m6">
+                <label>Recipe Name</label>
+                <input ref={(input) => this.recipeName = input} type="text" />
               </div>
-              <ul className="collection">
-              {
-                this.state.ingredients.map((ingredient, index) => {
-                  return <li key={index} className="collection-item">{ingredient}</li>
-                })
-              }
-              </ul>
-              <div
-                className="input-field col s12 hide"
-                id="paste-recipe-input"
-              >
-                <textarea
-                  className="materialize-textarea"
-                  id="paste-recipe-textarea"
-                  placeholder="Paste Your Recipe Here"
+            </div>
+  
+            <div className="row">
+              <div className="col s12 m6">
+                <label htmlFor="chips">Ingredients</label>
+                <div className="add-ingredient-row">
+                  <input ref={(input) => this.newIngredient = input} type="text" placeholder="Enter Ingredients"/>
+                  <button
+                      className="btn waves-effect waves-light"
+                      id="add-ingredient-button"
+                      onClick={(e) => this.addIngredient(e)}
+                    >
+                    Add
+                  </button>
+                </div>
+                <ul className="collection">
+                {
+                  this.state.ingredients.map((ingredient, index) => {
+                    return <li key={index} className="collection-item">{ingredient}</li>
+                  })
+                }
+                </ul>
+                <div
+                  className="input-field col s12 hide"
+                  id="paste-recipe-input"
+                >
+                  <textarea
+                    className="materialize-textarea"
+                    id="paste-recipe-textarea"
+                    placeholder="Paste Your Recipe Here"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  id="account-id"
+                  value="5a11e7de1bbb7600141f308a"
                 />
-              </div>
-              <input
-                type="hidden"
-                id="account-id"
-                value="5a11e7de1bbb7600141f308a"
-              />
-              <div className="col s12">
-                <button
-                  className="btn waves-effect waves-light"
-                  id="save-recipe-button"
-                  type="submit"
-                  name="action"
-                >
-                  Save
-                </button>
-                <button
-                  className="btn waves-effect waves-light"
-                  id="paste-recipe-button"
-                >
-                  Paste Recipe
-                </button>
+                <div className="col s12 add-recipe-button-row">
+                  <button
+                    className="btn waves-effect waves-light"
+                    id="save-recipe-button"
+                    type="submit"
+                    name="action"
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="btn waves-effect waves-light"
+                    id="paste-recipe-button"
+                  >
+                    Paste Recipe
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
-    )
+          </form>
+        </div>
+      )
+    }
+    return null
   }
 }
 

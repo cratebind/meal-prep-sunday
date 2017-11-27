@@ -8,6 +8,7 @@
     "material-ui": "^0.19.4",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
+    "prop-types": "^15.6.0",
     "re-base": "2.2.0",
     "react": "^16.1.1",
     "react-addons-css-transition-group": "^15.6.2",
@@ -24,6 +25,11 @@
     "build-css": "node-sass-chokidar --include-path ./src/App.scss --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
   }
 }

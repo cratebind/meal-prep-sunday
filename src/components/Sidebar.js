@@ -6,15 +6,15 @@ class Sidebar extends Component {
     return (
       <ul className="tabs">
         <li className="tab">
-          <a href="#new-recipe" id="new-recipe-button" className="active">
+          <a href="#new-recipe" id="new-recipe-button" className="active" onClick={() => this.props.changeRecipe(-1)}>
             Add New Recipe
             <i className="material-icons">add</i>
           </a>
         </li>
         <ReactCSSTransitionGroup
           transitionName="add-recipe"
-          transitionEnterTimeout={5000}
-          transitionLeaveTimeout={3000}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
         >
           {Object.keys(this.props.recipes).map(key => {
             return (

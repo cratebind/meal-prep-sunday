@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import base from './base';
-import sampleRecipes from './sample-recipes';
+// import sampleRecipes from './sample-recipes';
 
 // material UI components
 import AppBar from './components/AppBar';
@@ -20,14 +20,9 @@ class App extends Component {
     this.addRecipe = this.addRecipe.bind(this);
   }
 
-  // state = {
-  //   recipes: sampleRecipes,
-  //   activeRecipe: 0,
-  // };
-
   state = {
     recipes: [],
-    activeRecipe: 0,
+    activeRecipe: -1,
   }
 
   componentWillMount() {
@@ -40,7 +35,7 @@ class App extends Component {
   }
 
   changeRecipe(newRecipe) {
-    this.setState({ activeRecipe: newRecipe });
+    this.setState({ activeRecipe: parseInt(newRecipe) });
   }
 
   addRecipe(newRecipe) {
@@ -73,11 +68,12 @@ class App extends Component {
                 </div>
                 <AddRecipeForm
                   addRecipe={this.addRecipe}
+                  activeRecipe={this.state.activeRecipe}
                 />
                 {Object.keys(this.state.recipes).map(key => (
                   <Recipe
                     key={key}
-                    index={key}
+                    index={parseInt(key)}
                     activeRecipe={this.state.activeRecipe}
                     recipe={this.state.recipes[key]}
                     changeRecipe={this.changeRecipe}

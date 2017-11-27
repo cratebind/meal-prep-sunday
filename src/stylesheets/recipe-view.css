@@ -92,9 +92,7 @@
   input, textarea {
     font-size: 16px !important; } }
 
-.completed-container {
-  display: none; }
-  .completed-container .collection-item {
-    background-color: #e0e0e0;
-    color: gray;
-    border-bottom: 1px solid #FFF; }
+.completed-container .collection-item {
+  background-color: #e0e0e0;
+  color: gray;
+  border-bottom: 1px solid #FFF; }

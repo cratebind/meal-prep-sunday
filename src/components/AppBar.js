@@ -17,7 +17,7 @@ class AppBar extends React.Component {
             <li><a href="/users/register">Sign Up</a></li>
             <li><a href="/users/login">Login</a></li>
           </ul>
-          <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="material-icons">menu</i></a>
+          <a data-activates="nav-mobile" className="button-collapse"><i className="material-icons">menu</i></a>
         </div>
       </nav>
     )

@@ -153,3 +153,81 @@ nav {
   transform: translateY(0);
   transition: all 500ms ease;
 }
+
+.add-recipe-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.add-recipe-leave.add-recipe-leave-active {
+  opacity: 0.01;
+  transform: translateY(150%);
+  transition: opacity 300ms ease-in;
+}
+
+// ingredient list animations
+.ingredient-list-enter {
+  // opacity: 0.01;
+  transform: translateX(100%);
+  height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.ingredient-list-enter.ingredient-list-enter-active {
+  // opacity: 1;
+  transform: translateX(0);
+  height: 43px;
+  transition: all 400ms ease;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ingredient-list-leave {
+  // opacity: 1;
+  transform: translateX(0);
+  height: 43px;
+  transition: all 400ms ease;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ingredient-list-leave.ingredient-list-leave-active {
+  // opacity: 0.01;
+  transform: translateX(100%);
+  transition: all 400ms ease;
+  height: 0px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  overflow: hidden;
+}
+
+.add-recipe-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ingredient-list {
+  .collection {
+    border: none;
+  }
+
+  .collection .collection-item {
+    border: 1px solid #e0e0e0;
+    border-top: 0;
+  }
+
+  .collection .collection-header {
+    border: 1px solid #e0e0e0;
+  }
+}
+
+.tab-section {
+  @media only screen and (max-width: 992px) {
+    .tabs .tab {
+      flex-grow: initial !important;
+    }
+  }
+  
+}
