@@ -1,0 +1,154 @@
+#new-recipe-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: #FFF;
+  transition: all 300ms ease;
+
+  border-bottom: 1px solid #e0e0e0;
+
+  &:hover {
+      background: -webkit-gradient(linear, left top, right top, from(#0077aa), to(#19aaaa));
+      transition: all 300ms ease;
+  }
+
+  .material-icons {
+      margin-top: -5px;
+      margin-left: 5px;
+  }
+}
+
+#new-recipe {
+.chips {
+  position: relative;
+  padding-top: 60px;
+  border-bottom: 0 !important;
+
+  input {
+    position: absolute;
+    top: 0px;
+    border-bottom: 1px solid #9e9e9e !important;
+    width: 100% !important;
+
+    &:focus {
+      width: 100% !important;
+      border-bottom: 1px solid #9e9e9e !important;
+    }
+  }
+}
+
+.chips.focus {
+  box-shadow: none !important;
+
+  input {
+    border-bottom: 1px solid #9e9e9e !important;
+  }
+}
+
+.chip {
+  width: 100%;
+}
+}
+
+.save-recipe-button {
+position: absolute;
+top: 10px;
+right: 0;
+}
+
+.collection-item {
+text-transform: capitalize;
+}
+
+.tab-view-button {
+display: none;
+}
+
+@media only screen and (max-width: 768px) {
+html {
+  overflow-x: hidden;
+  width: 100vw;
+}
+body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100vw;
+}
+
+.tabs .tab {
+  flex-grow: 0;
+}
+
+.row .col.content-section {
+  position: absolute;
+  top: 0;
+  right: -100vw;
+}
+
+.main-view {
+  transition: all 300ms ease;
+}
+
+.main-view.content-view {
+  transform: translateX(-100%);
+}
+
+.tab-view-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 100vw;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 10px;
+  margin-left: -10px;
+
+  .material-icons {
+    margin-right: 10px;
+  }
+}
+
+.row .content-section {
+  padding-top: 0px !important;
+}
+
+.ingredient-list {
+  overflow-y: scroll;
+}
+
+nav {
+  // position: fixed;
+  z-index: 500;
+
+  .brand-logo {
+    width: 100%;
+    transform: none;
+    left: initial;
+    text-align: center;
+  }
+}
+
+.main-view {
+  height: calc(100vh - 56px);
+  // margin-top: 56px;
+}
+
+input, textarea {
+  font-size: 16px !important;
+}
+
+} // end of media query
+
+.completed-container {
+display: none;
+
+.collection-item {
+  background-color: #e0e0e0;
+  color: gray;
+  border-bottom: 1px solid #FFF;
+}
+}
