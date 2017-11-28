@@ -3,12 +3,10 @@ import './App.css';
 import base from './base';
 // import sampleRecipes from './sample-recipes';
 
-// material UI components
 import AppBar from './components/AppBar';
-
-// custom React components
 import Recipe from './components/Recipe';
 import Sidebar from './components/Sidebar';
+import LandingPage from './components/LandingPage';
 import AddRecipeForm from './components/AddRecipeForm';
 
 class App extends Component {
@@ -29,16 +27,18 @@ class App extends Component {
 
   componentWillMount() {
     // this runs right before the <App> is rendered
-    this.ref = base.syncState(`user-1/recipes`, {
-      context: this,
-      state: 'recipes',
-      asArray: true
-    });
+    if (this.props.user) {
+      this.ref = base.syncState(`${this.props.user.uid}/recipes`, {
+        context: this,
+        state: 'recipes',
+        asArray: true
+      });
+    }
   }
 
   changeRecipe(newRecipe) {
     // change active recipe
-    this.setState({ activeRecipe: parseInt(newRecipe) });
+    this.setState({ activeRecipe: parseInt(newRecipe, 10) });
     
     // change view to recipe on mobile
     this.toggleView();
@@ -68,7 +68,7 @@ class App extends Component {
 
     let recipeView;
 
-    if (this.state.recipeView == 'active') {
+    if (this.state.recipeView === 'active') {
       recipeView = 'inactive';
     } else {
       recipeView = 'active';
@@ -78,8 +78,9 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
+    if (this.props.user) {
+      return (
+        <div>
         <AppBar user={this.props.user} logout={this.props.logout}/>
         <div className="App">
           <div className="fluid-container">
@@ -102,7 +103,7 @@ class App extends Component {
                 {Object.keys(this.state.recipes).map(key => (
                   <Recipe
                     key={key}
-                    index={parseInt(key)}
+                    index={parseInt(key, 10)}
                     activeRecipe={this.state.activeRecipe}
                     recipe={this.state.recipes[key]}
                     changeRecipe={this.changeRecipe}
@@ -114,7 +115,15 @@ class App extends Component {
           </div>
         </div>
       </div>
-    );
+      )
+    }
+
+    return (
+      <div>
+        <AppBar user={this.props.user} logout={this.props.logout}/>
+        <LandingPage />  
+      </div>
+    )
   }
 }
 

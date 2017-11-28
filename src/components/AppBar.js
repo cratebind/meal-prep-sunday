@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
-import base from '../base';
+import { Link } from 'react-router-dom'
 
 class AppBar extends React.Component {
-  
-
   render() {
     function NavLinks(props) {
       if (props.user) {
@@ -26,23 +19,7 @@ class AppBar extends React.Component {
         )
       }
     }
-
-    const loggedIn = () => {
-      if (this.props.user) {
-        return (
-          <ul className="right hide-on-med-and-down">
-            <li><a href="/logout">Log Out</a></li>
-          </ul>
-        )
-      } else {
-        return (
-          <ul className="right hide-on-med-and-down">
-            <li><a href="/register">Sign Up</a></li>
-            <li><Link to="/login">Login</Link></li>
-          </ul>
-        )
-      }
-    }
+    
     return (
       <nav className="white" role="navigation">
         <div className="nav-wrapper">
