@@ -162,7 +162,7 @@ nav {
 .add-recipe-leave.add-recipe-leave-active {
   opacity: 0.01;
   transform: translateY(150%);
-  transition: opacity 300ms ease-in;
+  transition: all 300ms ease-in;
 }
 
 // ingredient list animations

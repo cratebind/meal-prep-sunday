@@ -24,22 +24,28 @@ class AddRecipeForm extends Component {
     
     if (newRecipe.name && newRecipe.ingredients) {
       this.props.addRecipe(newRecipe);
+      // reset ingredients state
+      this.setState({
+        ingredients: []
+      });
     }
   }
 
   addIngredient(event) {
     event.preventDefault();
 
-    const ingredients = this.state.ingredients;
-
-    ingredients.push({
-      completed: false,
-      ingredientName: this.newIngredient.value 
-    });
-
-    this.setState({ ingredients });
-
-    this.newIngredient.value = '';
+    if (this.newIngredient.value !== '') {
+      const ingredients = this.state.ingredients;
+      
+      ingredients.push({
+        completed: false,
+        ingredientName: this.newIngredient.value 
+      });
+  
+      this.setState({ ingredients });
+  
+      this.newIngredient.value = '';
+    }
   }
 
   render() {

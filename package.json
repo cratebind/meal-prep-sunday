@@ -2,7 +2,6 @@
   "name": "meal-prep-sunday-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mattfwood.github.io/meal-prep-sunday/",
   "dependencies": {
     "concurrently": "^3.5.1",
     "material-ui": "^0.19.4",
@@ -26,8 +25,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",

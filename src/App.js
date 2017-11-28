@@ -55,12 +55,17 @@ class App extends Component {
   }
 
   removeRecipe(recipeIndex) {
-    if (recipeIndex) {
+    debugger
+    if (recipeIndex && this.state.recipes.length > 1) {
       const recipes = this.state.recipes;
   
       recipes.splice(recipeIndex, 1);
   
       this.setState({ recipes });
+    } else if (this.state.recipes.length === 1) {
+      this.setState({ recipes: [] });
+      // if they delete the last recipe, set the view to add new recipe
+      this.setState({ activeRecipe: -1 });
     }
   }
 
