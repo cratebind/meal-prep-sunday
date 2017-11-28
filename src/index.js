@@ -3,22 +3,20 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
 } from 'react-router-dom'
 
 import './index.css';
 import App from './App';
 import LoginPage from './components/LoginPage';
-// import registerServiceWorker from './registerServiceWorker';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+import base from './base';
 
 class Root extends Component {
   constructor() {
     super();
 
     this.loginUser = this.loginUser.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   state = {
@@ -31,15 +29,22 @@ class Root extends Component {
     this.setState({ user })
   }
 
+  logout() {
+    console.log('logging user out')
+    base.unauth();
+    this.setState({ user: null });
+  }
+
   render() {
     return (
       <Router>
         <div>
           {/* Path to main app page */}
-          <Route exact path='/' component={App} />
-          {/* <Route exact path='/login' loginUser={loginUser} component={LoginPage} /> */}
+          <Route exact path='/' render={(props) => (
+            <App user={this.state.user} logout={this.logout}/>
+          )}/>
           <Route exact path='/login' render={(props) => (
-            <LoginPage loginUser={this.loginUser} />
+            <LoginPage loginUser={this.loginUser} user={this.state.user} {...props} />
           )}/>
         </div>
       </Router>

@@ -80,7 +80,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppBar />
+        <AppBar user={this.props.user} logout={this.props.logout}/>
         <div className="App">
           <div className="fluid-container">
             <div className={`row main-view ${this.state.recipeView}`}>
