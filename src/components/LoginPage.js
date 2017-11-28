@@ -1,6 +1,41 @@
 import React, { Component } from 'react';
+import base from '../base';
 
 class LoginPage extends Component {
+  constructor() {
+    super();
+
+    this.authenticate = this.authenticate.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+  }
+
+  componentDidMount() {
+    base.onAuth((user) => {
+      if (user) {
+        this.authHandler(null, { user });
+        console.log(user);
+      }
+    })
+  }
+
+  loginUser(user) {
+
+  }
+
+  authenticate(provider) {
+    console.log(`Trying to login with ${provider}`);
+    base.authWithOAuthPopup(provider, this.authHandler);
+  }
+
+  authHandler(err, authData) {
+    if (err) {
+      console.error(err);
+      return err;
+    }
+    // console.log(authData);
+    this.props.loginUser(authData.user);
+  }
+
   render() {
     return (
       <div className="login-container">
@@ -28,12 +63,12 @@ class LoginPage extends Component {
                     <a className="waves-effect waves-light btn-flat center-align" href="/users/register">Sign Up</a>
                   </div>
                   <div style={{marginBottom: 15}}>
-                    <a className="waves-effect waves-light btn social facebook" href="/auth/facebook">
+                    <a className="waves-effect waves-light btn social facebook disabled" href="/auth/facebook">
                       <i className="fa fa-facebook" /> Sign in with facebook
                     </a>
                   </div>
                   <div>
-                    <a className="waves-effect waves-light btn social google disabled">
+                    <a className="waves-effect waves-light btn social google" onClick={() => this.authenticate('google')}>
                       <i className="fa fa-google" /> Sign in with Google
                     </a>
                   </div>

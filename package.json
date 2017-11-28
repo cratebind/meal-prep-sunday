@@ -2,7 +2,7 @@
   "name": "meal-prep-sunday-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mattfwood.github.io/meal-prep-sunday/",
+  "homepage": "",
   "dependencies": {
     "concurrently": "^3.5.1",
     "material-ui": "^0.19.4",
