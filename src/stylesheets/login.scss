@@ -8,9 +8,9 @@
   align-items: center;
   justify-content: center;
   background: #0077aa;
-  background: -webkit-linear-gradient(left, #0077aa, #19aaaa);
-  background: -moz-linear-gradient(left, #0077aa, #19aaaa);
-  background: linear-gradient(left, #0077aa, #19aaaa);
+  background: -webkit-linear-gradient(to right, #0077aa, #19aaaa);
+  background: -moz-linear-gradient(to right, #0077aa, #19aaaa);
+  background: linear-gradient(to right, #0077aa, #19aaaa);
 
   .card {
     min-width: 400px;

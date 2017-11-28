@@ -264,9 +264,9 @@
   align-items: center;
   justify-content: center;
   background: #0077aa;
-  background: -webkit-linear-gradient(left, #0077aa, #19aaaa);
-  background: -moz-linear-gradient(left, #0077aa, #19aaaa);
-  background: linear-gradient(left, #0077aa, #19aaaa); }
+  background: -webkit-linear-gradient(to right, #0077aa, #19aaaa);
+  background: -moz-linear-gradient(to right, #0077aa, #19aaaa);
+  background: linear-gradient(to right, #0077aa, #19aaaa); }
   .login-container .card {
     min-width: 400px; }
     .login-container .card .card-action {
@@ -449,9 +449,9 @@ p {
   line-height: 0;
   height: auto;
   background: #1F1C2C;
-  background: -webkit-linear-gradient(left, #1F1C2C, #928dab);
-  background: -moz-linear-gradient(left, #1F1C2C, #928dab);
-  background: linear-gradient(left, #1F1C2C, #928dab); }
+  background: -webkit-linear-gradient(to right, #1F1C2C, #928dab);
+  background: -moz-linear-gradient(to right, #1F1C2C, #928dab);
+  background: linear-gradient(to right, #1F1C2C, #928dab); }
 
 .parallax-container .section {
   width: 100%; }

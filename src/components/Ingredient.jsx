@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import PropTypes from 'prop-types';
 
 class Ingredient extends Component {
   render() {
