@@ -11,6 +11,7 @@ class AddRecipeForm extends Component {
 
   state = {
     ingredients: [],
+    bulkAddMode: false
   }
 
   createRecipe(event) {
@@ -63,16 +64,32 @@ class AddRecipeForm extends Component {
             <div className="row">
               <div className="col s12 m6">
                 <label htmlFor="chips">Ingredients</label>
-                <div className="add-ingredient-row">
-                  <input ref={(input) => this.newIngredient = input} type="text" placeholder="Enter Ingredients"/>
-                  <button
-                      className="btn waves-effect waves-light"
-                      id="add-ingredient-button"
-                      onClick={(e) => this.addIngredient(e)}
+                {
+                  !this.state.bulkAddMode &&
+                    <div className="add-ingredient-row">
+                      <input ref={(input) => this.newIngredient = input} type="text" placeholder="Enter Ingredients"/>
+                      <button
+                          className="btn waves-effect waves-light"
+                          id="add-ingredient-button"
+                          onClick={(e) => this.addIngredient(e)}
+                        >
+                        Add
+                      </button>
+                    </div>
+                }
+                {
+                  this.state.bulkAddMode &&
+                    <div
+                      className="input-field col s12"
+                      id="paste-recipe-input"
                     >
-                    Add
-                  </button>
-                </div>
+                      <textarea
+                        className="materialize-textarea"
+                        id="paste-recipe-textarea"
+                        placeholder="Paste Your Recipe Here"
+                      />
+                    </div>
+                }
                 <ul className="collection">
                 {
                   this.state.ingredients.map((ingredient, index) => {
@@ -87,16 +104,6 @@ class AddRecipeForm extends Component {
                   })
                 }
                 </ul>
-                <div
-                  className="input-field col s12 hide"
-                  id="paste-recipe-input"
-                >
-                  <textarea
-                    className="materialize-textarea"
-                    id="paste-recipe-textarea"
-                    placeholder="Paste Your Recipe Here"
-                  />
-                </div>
                 <div className="col s12 add-recipe-button-row">
                   <button
                     className="btn waves-effect waves-light"
@@ -109,6 +116,7 @@ class AddRecipeForm extends Component {
                   <button
                     className="btn waves-effect waves-light"
                     id="paste-recipe-button"
+                    onClick={() => this.setState({ bulkAddMode: !this.state.bulkAddMode })}
                   >
                     Paste Recipe
                   </button>

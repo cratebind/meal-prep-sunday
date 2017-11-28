@@ -37,7 +37,6 @@ class App extends Component {
   }
 
   addRecipe = (newRecipe) => {
-    
     const recipes = this.state.recipes;
 
     foodAPI.getAisle(newRecipe.ingredients).then(result => {
