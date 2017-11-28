@@ -1,0 +1,41 @@
+.add-recipe-enter {
+  opacity: 0.01;
+  transform: translateY(150%); }
+
+.add-recipe-enter.add-recipe-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 500ms ease; }
+
+.add-recipe-leave {
+  opacity: 1;
+  transform: translateY(0); }
+
+.add-recipe-leave.add-recipe-leave-active {
+  opacity: 0.01;
+  transform: translateY(150%);
+  transition: all 300ms ease-in; }
+
+.ingredient-list-enter {
+  height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+
+.ingredient-list-enter.ingredient-list-enter-active {
+  transition: all 400ms ease;
+  height: 43px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.ingredient-list-leave {
+  height: 43px;
+  transition: all 400ms ease;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.ingredient-list-leave.ingredient-list-leave-active {
+  transition: all 400ms ease;
+  height: 0px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  overflow: hidden; }

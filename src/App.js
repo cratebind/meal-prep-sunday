@@ -8,21 +8,13 @@ import Recipe from './components/Recipe';
 import Sidebar from './components/Sidebar';
 import LandingPage from './components/LandingPage';
 import AddRecipeForm from './components/AddRecipeForm';
-d
+import foodAPI from './api/foodAPI';
+
 class App extends Component {
-  constructor() {
-    super();
-
-    this.changeRecipe = this.changeRecipe.bind(this);
-    this.addRecipe = this.addRecipe.bind(this);
-    this.toggleView = this.toggleView.bind(this);
-    this.removeRecipe = this.removeRecipe.bind(this);
-  }
-
   state = {
     recipes: [],
     activeRecipe: -1,
-    recipeView: 'active'
+    recipeView: true
   }
 
   componentWillMount() {
@@ -36,7 +28,7 @@ class App extends Component {
     }
   }
 
-  changeRecipe(newRecipe) {
+  changeRecipe = (newRecipe) => {
     // change active recipe
     this.setState({ activeRecipe: parseInt(newRecipe, 10) });
     
@@ -44,17 +36,25 @@ class App extends Component {
     this.toggleView();
   }
 
-  addRecipe(newRecipe) {
+  addRecipe = (newRecipe) => {
+    
     const recipes = this.state.recipes;
 
-    recipes.push(newRecipe);
+    foodAPI.getAisle(newRecipe.ingredients).then(result => {
+      newRecipe.ingredients = result;
 
-    this.setState({ recipes });
-
-    this.toggleView();
+      recipes.push(newRecipe);
+      
+      this.setState({ recipes });
+  
+      this.toggleView();
+      
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
-  removeRecipe(recipeIndex) {
+  removeRecipe = (recipeIndex) => {
     if (recipeIndex && this.state.recipes.length > 1) {
       const recipes = this.state.recipes;
   
@@ -72,26 +72,29 @@ class App extends Component {
     }
   }
 
-  toggleView() {
-    let recipeView;
+  updateRecipe = (updatedRecipe) => {
+    console.log(updatedRecipe);
+    const recipes = this.state.recipes;
 
-    if (this.state.recipeView === 'active') {
-      recipeView = 'inactive';
-    } else {
-      recipeView = 'active';
-    }
+    recipes[updatedRecipe.key] = updatedRecipe;
+    this.setState({ recipes });
+  }
 
+  // toggle recipe list / detail view on mobile
+  toggleView = () => {
+    const recipeView = !this.state.recipeView;
     this.setState({ recipeView: recipeView });
   }
 
   render() {
+    const recipeViewStyleClass = this.state.recipeView ? 'active' : 'inactive'
     if (this.props.user) {
       return (
         <div>
         <AppBar user={this.props.user} logout={this.props.logout}/>
         <div className="App">
           <div className="fluid-container">
-            <div className={`row main-view ${this.state.recipeView}`}>
+            <div className={`row main-view ${recipeViewStyleClass}`}>
               <div className="col s12 m3 tab-section">
                 <Sidebar
                   recipes={this.state.recipes}
@@ -115,6 +118,7 @@ class App extends Component {
                     recipe={this.state.recipes[key]}
                     changeRecipe={this.changeRecipe}
                     removeRecipe={this.removeRecipe}
+                    updateRecipe={this.updateRecipe}
                   />
                 ))}
               </div>

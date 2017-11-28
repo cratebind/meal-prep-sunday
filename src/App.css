@@ -438,6 +438,48 @@
   color: gray;
   border-bottom: 1px solid #FFF; }
 
+.add-recipe-enter {
+  opacity: 0.01;
+  transform: translateY(150%); }
+
+.add-recipe-enter.add-recipe-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 500ms ease; }
+
+.add-recipe-leave {
+  opacity: 1;
+  transform: translateY(0); }
+
+.add-recipe-leave.add-recipe-leave-active {
+  opacity: 0.01;
+  transform: translateY(150%);
+  transition: all 300ms ease-in; }
+
+.ingredient-list-enter {
+  height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+
+.ingredient-list-enter.ingredient-list-enter-active {
+  transition: all 400ms ease;
+  height: 43px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.ingredient-list-leave {
+  height: 43px;
+  transition: all 400ms ease;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.ingredient-list-leave.ingredient-list-leave-active {
+  transition: all 400ms ease;
+  height: 0px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  overflow: hidden; }
+
 p {
   line-height: 2rem; }
 
@@ -547,52 +589,6 @@ nav {
 .tabs > span {
   display: flex;
   flex-direction: column; }
-
-.add-recipe-enter {
-  opacity: 0.01;
-  transform: translateY(150%); }
-
-.add-recipe-enter.add-recipe-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 500ms ease; }
-
-.add-recipe-leave {
-  opacity: 1;
-  transform: translateY(0); }
-
-.add-recipe-leave.add-recipe-leave-active {
-  opacity: 0.01;
-  transform: translateY(150%);
-  transition: all 300ms ease-in; }
-
-.ingredient-list-enter {
-  transform: translateX(100%);
-  height: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px; }
-
-.ingredient-list-enter.ingredient-list-enter-active {
-  transform: translateX(0);
-  height: 43px;
-  transition: all 400ms ease;
-  padding-top: 10px;
-  padding-bottom: 10px; }
-
-.ingredient-list-leave {
-  transform: translateX(0);
-  height: 43px;
-  transition: all 400ms ease;
-  padding-top: 10px;
-  padding-bottom: 10px; }
-
-.ingredient-list-leave.ingredient-list-leave-active {
-  transform: translateX(100%);
-  transition: all 400ms ease;
-  height: 0px !important;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  overflow: hidden; }
 
 .add-recipe-button-row {
   display: flex;

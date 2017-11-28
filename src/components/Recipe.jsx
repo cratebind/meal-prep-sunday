@@ -8,63 +8,81 @@ class Recipe extends Component {
     super(props);
 
     this.toggleCompleted = this.toggleCompleted.bind(this);
-
-    this.state = {
-      ingredients: this.props.recipe.ingredients,
-    };
   }
 
-  // state = {
-  //   ingredients: this.props.recipe.ingredients
-  // }
-
-  toggleCompleted(index) {
-    const ingredients = this.state.ingredients;
+  toggleCompleted = (index) => {
+    const recipe = this.props.recipe;
+    
+    const toggleIndex = recipe.ingredients.find(ingredient => ingredient.ingredientKey === index).ingredientKey
 
     // if the item is marked as completed, make it false
-    if (ingredients[index].completed) {
-      ingredients[index].completed = false;
+    if (recipe.ingredients[toggleIndex].completed) {
+      recipe.ingredients[toggleIndex].completed = false;
     } else {
-      ingredients[index].completed = true;
+      recipe.ingredients[toggleIndex].completed = true;
     }
 
-    this.setState({ ingredients });
-  }
+    // update ingredient state in app.js
+    this.props.updateRecipe(recipe);
+
+    // this.setState({ ingredients });
+  };
 
   render() {
     const details = this.props.recipe;
     const activeRecipe = this.props.activeRecipe;
+    let sortedIngredients = {};
+
+    this.props.recipe.ingredients.forEach(ingredient => {
+      if (sortedIngredients[ingredient.aisle] === undefined) {
+        sortedIngredients[ingredient.aisle] = [ingredient];
+      } else {
+        sortedIngredients[ingredient.aisle].push(ingredient);
+      }
+    });
+
+    console.log(sortedIngredients);
+
     if (this.props.index === activeRecipe) {
       return (
         <div id={details.key} className="ingredient-list">
           <div className="row">
             <div className="col s12 m6">
-              <button className="btn btn-danger" onClick={() => this.props.removeRecipe(this.props.index)}>
+              <button
+                className="btn btn-danger"
+                onClick={() => this.props.removeRecipe(this.props.index)}
+              >
                 Remove Recipe
               </button>
-              <ul className="collection with-header">
-                <li className="collection-header">
-                  <h4>{details.name}</h4>
-                </li>
-                <ReactCSSTransitionGroup
-                  transitionName="ingredient-list"
-                  transitionEnterTimeout={400}
-                  transitionLeaveTimeout={400}
-                >
-                  {this.props.recipe.ingredients.map((ingredient, index) => {
-                    if (!ingredient.completed) {
-                      return (
-                        <Ingredient
-                          ingredient={ingredient}
-                          onClick={() => this.toggleCompleted(index)}
-                          key={index}
-                        />
-                      );
-                    }
-                    return null;
-                  })}
-                </ReactCSSTransitionGroup>
-              </ul>
+              <h4>{details.name}</h4>
+              {Object.keys(sortedIngredients).map((key, index) => {
+                // const aisle = sortedIngredients[key];
+                return (
+                  <ul className="collection with-header" key={key}>
+                    <li className="collection-header">
+                      <h4>{key}</h4>
+                    </li>
+                    <ReactCSSTransitionGroup
+                      transitionName="ingredient-list"
+                      transitionEnterTimeout={400}
+                      transitionLeaveTimeout={400}
+                    >
+                      {sortedIngredients[key].map((ingredient, index) => {
+                        if (!ingredient.completed) {
+                          return (
+                            <Ingredient
+                              ingredient={ingredient}
+                              onClick={() => this.toggleCompleted(ingredient.ingredientKey)}
+                              key={index}
+                            />
+                          );
+                        }
+                        return null;
+                      })}
+                    </ReactCSSTransitionGroup>
+                  </ul>
+                );
+              })}
             </div>
           </div>
           <div className="row">
