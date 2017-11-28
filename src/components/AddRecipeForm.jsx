@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Ingredient from './Ingredient';
 
 class AddRecipeForm extends Component {
   constructor() {
@@ -16,20 +17,11 @@ class AddRecipeForm extends Component {
     event.preventDefault();
     console.log('Creating Recipe');
 
-    const ingredientArray = [];
-
-    this.state.ingredients.forEach(ingredient => {
-      ingredientArray.push({
-        ingredientName: ingredient,
-        completed: false
-      });
-    });
-
     const newRecipe = {
       name: this.recipeName.value,
-      ingredients: ingredientArray,
+      ingredients: this.state.ingredients,
     }
-
+    
     if (newRecipe.name && newRecipe.ingredients) {
       this.props.addRecipe(newRecipe);
     }
@@ -37,13 +29,15 @@ class AddRecipeForm extends Component {
 
   addIngredient(event) {
     event.preventDefault();
-    console.log(this.newIngredient.value);
 
     const ingredients = this.state.ingredients;
 
-    ingredients.push(this.newIngredient.value);
+    ingredients.push({
+      completed: false,
+      ingredientName: this.newIngredient.value 
+    });
 
-    this.setState(ingredients);
+    this.setState({ ingredients });
 
     this.newIngredient.value = '';
   }
@@ -76,7 +70,14 @@ class AddRecipeForm extends Component {
                 <ul className="collection">
                 {
                   this.state.ingredients.map((ingredient, index) => {
-                    return <li key={index} className="collection-item">{ingredient}</li>
+                    return (
+                      <Ingredient
+                        ingredient={ingredient}
+                        onClick={() => this.toggleCompleted(index)}
+                        key={index}
+                      />
+                    )
+                    // <li key={index} className="collection-item">{ingredient}</li>
                   })
                 }
                 </ul>
@@ -90,11 +91,6 @@ class AddRecipeForm extends Component {
                     placeholder="Paste Your Recipe Here"
                   />
                 </div>
-                <input
-                  type="hidden"
-                  id="account-id"
-                  value="5a11e7de1bbb7600141f308a"
-                />
                 <div className="col s12 add-recipe-button-row">
                   <button
                     className="btn waves-effect waves-light"

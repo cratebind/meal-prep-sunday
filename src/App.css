@@ -421,8 +421,6 @@
       margin-right: 10px; }
   .row .content-section {
     padding-top: 0px !important; }
-  .ingredient-list {
-    overflow-y: scroll; }
   nav {
     z-index: 500; }
     nav .brand-logo {
@@ -614,3 +612,7 @@ nav {
 @media only screen and (max-width: 992px) {
   .tab-section .tabs .tab {
     flex-grow: initial !important; } }
+
+@media only screen and (max-width: 600px) {
+  .main-view.inactive {
+    transform: translateX(-100%); } }
