@@ -24,6 +24,10 @@ class AddRecipeForm extends Component {
     
     if (newRecipe.name && newRecipe.ingredients) {
       this.props.addRecipe(newRecipe);
+      this.recipeName.value = '';
+      this.setState({
+        ingredients: []
+      })
     }
   }
 

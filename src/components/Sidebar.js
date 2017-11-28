@@ -6,7 +6,7 @@ class Sidebar extends Component {
     return (
       <ul className="tabs">
         <li className="tab">
-          <a href="#new-recipe" id="new-recipe-button" className="active" onClick={() => this.props.changeRecipe(-1)}>
+          <a id="new-recipe-button" className="active" onClick={() => this.props.changeRecipe(-1)}>
             Add New Recipe
             <i className="material-icons">add</i>
           </a>
@@ -20,7 +20,6 @@ class Sidebar extends Component {
             return (
               <li className="tab" key={key}>
                 <a
-                  href={`#${key}`}
                   onClick={() => this.props.changeRecipe(key)}
                 >
                   {this.props.recipes[key].name}

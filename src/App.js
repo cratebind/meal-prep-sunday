@@ -52,6 +52,8 @@ class App extends Component {
     recipes.push(newRecipe);
 
     this.setState({ recipes });
+
+    this.toggleView();
   }
 
   removeRecipe(recipeIndex) {
@@ -61,11 +63,12 @@ class App extends Component {
       recipes.splice(recipeIndex, 1);
   
       this.setState({ recipes });
+
+      this.toggleView();
     }
   }
 
   toggleView() {
-
     let recipeView;
 
     if (this.state.recipeView === 'active') {
