@@ -128,7 +128,11 @@ class App extends Component {
               </div>
             </div>
           </div>
-          <GroceryListForm active={groceryListView} recipes={this.state.recipes}/>
+          <GroceryListForm
+            active={groceryListView}
+            recipes={this.state.recipes}
+            groceryListToggle={() => this.setState({ groceryListView: !this.state.groceryListView })}
+          />
         </div>
       )
     }

@@ -1,15 +1,19 @@
-#new-recipe-button {
+#new-recipe-button, #new-grocery-list {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: #FFF;
   transition: all 300ms ease;
+  border-radius: 0;
   border-bottom: 1px solid #e0e0e0; }
-  #new-recipe-button:hover {
+  #new-recipe-button:hover, #new-grocery-list:hover {
     background-color: #0077aa;
     transition: all 300ms ease;
     color: #FFF; }
+
+#new-grocery-list {
+  border-left: 1px solid #e0e0e0; }
 
 #new-recipe .chips {
   position: relative;

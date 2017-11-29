@@ -14,7 +14,7 @@ class Sidebar extends Component {
             Add Recipe
             <i className="material-icons right">add</i>
           </a>
-          <a id="new-recipe-button"
+          <a id="new-grocery-list"
             className="active btn-flat"
             onClick={() => this.props.groceryListToggle()}
           >
