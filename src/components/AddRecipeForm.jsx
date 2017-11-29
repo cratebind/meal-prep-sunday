@@ -100,7 +100,6 @@ class AddRecipeForm extends Component {
                         key={index}
                       />
                     )
-                    // <li key={index} className="collection-item">{ingredient}</li>
                   })
                 }
                 </ul>
