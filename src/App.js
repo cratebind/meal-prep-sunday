@@ -8,13 +8,15 @@ import Recipe from './components/Recipe';
 import Sidebar from './components/Sidebar';
 import LandingPage from './components/LandingPage';
 import AddRecipeForm from './components/AddRecipeForm';
+import GroceryListForm from './components/GroceryListForm';
 import foodAPI from './api/foodAPI';
 
 class App extends Component {
   state = {
     recipes: [],
     activeRecipe: -1,
-    recipeView: true
+    recipeView: true,
+    groceryListView: false,
   }
 
   componentWillMount() {
@@ -86,45 +88,48 @@ class App extends Component {
   }
 
   render() {
-    const recipeViewStyleClass = this.state.recipeView ? 'active' : 'inactive'
+    const recipeViewStyleClass = this.state.recipeView ? 'active' : 'inactive';
+    const groceryListView = this.state.groceryListView ? 'active' : 'inactive';
     if (this.props.user) {
       return (
         <div>
         <AppBar user={this.props.user} logout={this.props.logout}/>
-        <div className="App">
-          <div className="fluid-container">
-            <div className={`row main-view ${recipeViewStyleClass}`}>
-              <div className="col s12 m3 tab-section">
-                <Sidebar
-                  recipes={this.state.recipes}
-                  changeRecipe={this.changeRecipe}
-                />
-              </div>
-              <div className="col s12 m9 content-section">
-                <div className="tab-view-button" onClick={() => this.toggleView()}>
-                  <i className="material-icons">arrow_back</i>
-                  <div>Back</div>
-                </div>
-                <AddRecipeForm
-                  addRecipe={this.addRecipe}
-                  activeRecipe={this.state.activeRecipe}
-                />
-                {Object.keys(this.state.recipes).map(key => (
-                  <Recipe
-                    key={key}
-                    index={parseInt(key, 10)}
-                    activeRecipe={this.state.activeRecipe}
-                    recipe={this.state.recipes[key]}
+          <div className="App">
+            <div className="fluid-container">
+              <div className={`row main-view ${recipeViewStyleClass}`}>
+                <div className="col s12 m3 tab-section">
+                  <Sidebar
+                    recipes={this.state.recipes}
                     changeRecipe={this.changeRecipe}
-                    removeRecipe={this.removeRecipe}
-                    updateRecipe={this.updateRecipe}
+                    groceryListToggle={() => this.setState({ groceryListView: !this.state.groceryListView })}
                   />
-                ))}
+                </div>
+                <div className="col s12 m9 content-section">
+                  <div className="tab-view-button" onClick={() => this.toggleView()}>
+                    <i className="material-icons">arrow_back</i>
+                    <div>Back</div>
+                  </div>
+                  <AddRecipeForm
+                    addRecipe={this.addRecipe}
+                    activeRecipe={this.state.activeRecipe}
+                  />
+                  {Object.keys(this.state.recipes).map(key => (
+                    <Recipe
+                      key={key}
+                      index={parseInt(key, 10)}
+                      activeRecipe={this.state.activeRecipe}
+                      recipe={this.state.recipes[key]}
+                      changeRecipe={this.changeRecipe}
+                      removeRecipe={this.removeRecipe}
+                      updateRecipe={this.updateRecipe}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+          <GroceryListForm active={groceryListView} recipes={this.state.recipes}/>
         </div>
-      </div>
       )
     }
 

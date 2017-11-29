@@ -10,10 +10,11 @@ class Recipe extends Component {
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
-  toggleCompleted = (index) => {
+  toggleCompleted = index => {
     const recipe = this.props.recipe;
-    
-    const toggleIndex = recipe.ingredients.find(ingredient => ingredient.ingredientKey === index).ingredientKey
+
+    const toggleIndex = recipe.ingredients.find(ingredient => ingredient.ingredientKey === index)
+      .ingredientKey;
 
     // if the item is marked as completed, make it false
     if (recipe.ingredients[toggleIndex].completed) {
@@ -41,19 +42,26 @@ class Recipe extends Component {
       }
     });
 
-    console.log(sortedIngredients);
-
     if (this.props.index === activeRecipe) {
       return (
         <div id={details.key} className="ingredient-list">
           <div className="row">
-            <div className="col s12 m6">
+            <div className="col s10 offset-s1 m6 recipe-top-buttons">
+              <button className="btn">
+                Edit
+                <i className="material-icons right">edit</i>
+              </button>
               <button
-                className="btn btn-danger"
+                className="btn red darken-1"
                 onClick={() => this.props.removeRecipe(this.props.index)}
               >
-                Remove Recipe
+                Delete
+                <i class="material-icons right">delete_forever</i>
               </button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 m6">
               <h4>{details.name}</h4>
               {Object.keys(sortedIngredients).map((key, index) => {
                 // const aisle = sortedIngredients[key];

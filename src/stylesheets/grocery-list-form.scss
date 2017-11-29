@@ -1,0 +1,24 @@
+.grocery-list-form {
+  height: calc(100vh - 56px);
+  width: 100vw;
+  background-color: #FFF;
+  position: absolute;
+  top: 56px;
+  padding: 15px;
+  transform: translateY(100vh);
+  transition: all 300ms ease;
+
+  &.active {
+    transform: translateY(0%);
+  }
+
+  .collection-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    [type="checkbox"]+label {
+      height: 21px;
+    }
+  }
+}
