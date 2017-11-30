@@ -2,10 +2,19 @@ import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 
 class GroceryListForm extends Component {
+  state = {
+    checked: false,
+  }
+  
   saveGroceryList() {}
 
-  render() {
+  updateCheck() {
+    this.setState(oldState => ({
+      checked: !oldState.checked,
+    }));
+  }
 
+  render() {
     const styles = {
       block: {
         maxWidth: 250,
@@ -28,6 +37,8 @@ class GroceryListForm extends Component {
             {this.props.recipes.map(recipe => (
               <li className="collection-item" key={recipe.key}>
                 <Checkbox
+                  onCheck={this.updateCheck.bind(this)}
+                  checked={this.state.checked}
                   style={styles.checkbox}
                   label={recipe.name}
                 />
