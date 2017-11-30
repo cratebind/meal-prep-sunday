@@ -14,7 +14,8 @@ class Sidebar extends Component {
             Add Recipe
             <i className="material-icons right">add</i>
           </a>
-          <a id="new-grocery-list"
+          <a
+            id="new-grocery-list"
             className="active btn-flat"
             onClick={() => this.props.groceryListToggle()}
           >
@@ -22,6 +23,13 @@ class Sidebar extends Component {
             <i className="material-icons right">shopping_cart</i>
           </a>
         </li>
+        <li className="tab tab-header-section">Grocery Lists</li>
+        {this.props.groceryLists.map((groceryList, index) => (
+          <li key={index} className="tab">
+            <a>Grocery List 1</a>
+          </li>
+        ))}
+        <li className="tab tab-header-section">Recipes</li>
         <ReactCSSTransitionGroup
           transitionName="add-recipe"
           transitionEnterTimeout={500}
@@ -31,7 +39,7 @@ class Sidebar extends Component {
             <li className="tab" key={key}>
               <a onClick={() => this.props.changeRecipe(key)}>{this.props.recipes[key].name}</a>
             </li>
-            ))}
+          ))}
         </ReactCSSTransitionGroup>
       </ul>
     );

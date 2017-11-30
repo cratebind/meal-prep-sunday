@@ -140,7 +140,7 @@ nav {
 }
 
 .main-view {
-  height: calc(100vh - 56px);
+  height: calc(100vh - 64px);
   // margin-top: 56px;
 }
 
@@ -165,4 +165,11 @@ input, textarea {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.tab-header-section {
+  font-size: 18px;
+  line-height: 48px;
+  background: -webkit-gradient(linear, left top, right top, from(#0077aa), to(#19aaaa));
+  color: #FFF;
 }

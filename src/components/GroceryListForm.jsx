@@ -2,16 +2,32 @@ import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 
 class GroceryListForm extends Component {
-  state = {
-    checked: false,
+  constructor(props) {
+    super(props);
   }
   
-  saveGroceryList() {}
+  state = {
+    checked: false,
+    newGroceryList: [],
+  }
+  
+  saveGroceryList = () => {
+    this.props.saveGroceryList(this.state.newGroceryList);
+    this.props.groceryListToggle();
+  }
 
-  updateCheck() {
-    this.setState(oldState => ({
-      checked: !oldState.checked,
-    }));
+  addRecipe = (e, newRecipe) => {
+    // if the newRecipe is being checked, add it to the array
+    if (e.target.checked) {
+      const newGroceryList = this.state.newGroceryList;
+      newGroceryList.push(newRecipe);
+      this.setState({ newGroceryList });
+    } else {
+      const newGroceryList = this.state.newGroceryList.filter(recipe => recipe.name !== newRecipe.name)
+      console.log(newGroceryList);
+
+      this.setState({ newGroceryList });
+    }
   }
 
   render() {
@@ -22,6 +38,8 @@ class GroceryListForm extends Component {
       checkbox: {
       },
     };
+
+    const addedRecipes = [];
 
     return (
       <div className={`grocery-list-form ${this.props.active}`}>
@@ -36,9 +54,11 @@ class GroceryListForm extends Component {
             {this.props.recipes.map(recipe => (
               <li className="collection-item" key={recipe.key}>
                 <Checkbox
-                  onCheck={this.updateCheck.bind(this)}
+                  onCheck={(e) => this.addRecipe(e, recipe)}
                   style={styles.checkbox}
                   label={recipe.name}
+                  recipe={recipe.key}
+                  ref={(input) => { this.checkbox = input}}
                 />
               </li>
             ))}
@@ -48,7 +68,7 @@ class GroceryListForm extends Component {
               <a className="btn red darken-1">Clear List</a>
             </div>
             <div className="col s6 center-align">
-              <a className="btn">Save List</a>
+              <a className="btn" onClick={() => this.saveGroceryList()}>Save List</a>
             </div>
           </div>
         </div>

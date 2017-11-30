@@ -11,6 +11,8 @@
   flex-direction: row;
   align-content: center;
   justify-content: center; }
+  .grocery-list-form h4 {
+    font-size: 2rem; }
   .grocery-list-form.active {
     transform: translateY(0%);
     z-index: 500; }

@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import LandingPage from './components/LandingPage';
 import AddRecipeForm from './components/AddRecipeForm';
 import GroceryListForm from './components/GroceryListForm';
+import GroceryList from './components/GroceryList';
 import foodAPI from './api/foodAPI';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
     activeRecipe: -1,
     recipeView: true,
     groceryListView: false,
+    groceryLists: []
   };
 
   componentWillMount() {
@@ -27,6 +29,11 @@ class App extends Component {
       this.ref = base.syncState(`${this.props.user.uid}/recipes`, {
         context: this,
         state: 'recipes',
+        asArray: true,
+      });
+      this.ref = base.syncState(`${this.props.user.uid}/groceryLists`, {
+        context: this,
+        state: 'groceryLists',
         asArray: true,
       });
     }
@@ -77,13 +84,20 @@ class App extends Component {
     }
   };
 
-  updateRecipe = updatedRecipe => {
+  updateRecipe = (updatedRecipe) => {
     console.log(updatedRecipe);
     const recipes = this.state.recipes;
 
     recipes[updatedRecipe.key] = updatedRecipe;
     this.setState({ recipes });
   };
+
+  saveGroceryList = (newGroceryList) => {
+    const groceryLists = this.state.groceryLists;
+    groceryLists.push(newGroceryList);
+
+    this.setState({ groceryLists});
+  }
 
   // toggle recipe list / detail view on mobile
   toggleView = () => {
@@ -105,6 +119,7 @@ class App extends Component {
                   <div className="col s12 m3 tab-section">
                     <Sidebar
                       recipes={this.state.recipes}
+                      groceryLists={this.state.groceryLists}
                       changeRecipe={this.changeRecipe}
                       groceryListToggle={() =>
                         this.setState({ groceryListView: !this.state.groceryListView })
@@ -116,11 +131,12 @@ class App extends Component {
                       <i className="material-icons">arrow_back</i>
                       <div>Back</div>
                     </div>
-                    <AddRecipeForm
+                    <GroceryList recipes={this.state.groceryLists}/>
+                    {/* <AddRecipeForm
                       addRecipe={this.addRecipe}
                       activeRecipe={this.state.activeRecipe}
-                    />
-                    {Object.keys(this.state.recipes).map(key => (
+                    /> */}
+                    {/* {Object.keys(this.state.recipes).map(key => (
                       <Recipe
                         key={key}
                         index={parseInt(key, 10)}
@@ -130,7 +146,7 @@ class App extends Component {
                         removeRecipe={this.removeRecipe}
                         updateRecipe={this.updateRecipe}
                       />
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               </div>
@@ -141,6 +157,7 @@ class App extends Component {
               groceryListToggle={() =>
                 this.setState({ groceryListView: !this.state.groceryListView })
               }
+              saveGroceryList={this.saveGroceryList}
             />
           </div>
         </MuiThemeProvider>

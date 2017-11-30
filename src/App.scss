@@ -143,6 +143,8 @@ nav {
 
 .row .content-section {
   padding-top: 15px;
+  height: calc(100vh - 64px);
+  overflow-y: scroll;
 }
 
 .fluid-container > .row {
