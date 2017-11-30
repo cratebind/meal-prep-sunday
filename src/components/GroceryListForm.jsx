@@ -1,30 +1,46 @@
 import React, { Component } from 'react';
+import Checkbox from 'material-ui/Checkbox';
 
 class GroceryListForm extends Component {
+  saveGroceryList() {}
+
   render() {
+
+    const styles = {
+      block: {
+        maxWidth: 250,
+      },
+      checkbox: {
+        marginBottom: 16,
+      },
+    };
+
     return (
       <div className={`grocery-list-form ${this.props.active}`}>
-        <div className="row">
-          <i className="material-icons right" onClick={() => this.props.groceryListToggle()}>
-            keyboard_arrow_down
-          </i>
-        </div>
-        <h4>Add Items to Your Grocery List</h4>
-        <ul className="collection">
-          {this.props.recipes.map(recipe => (
-            <li className="collection-item">
-              <input type="checkbox" className="filled-in" id={`filled-in-box-${recipe.key}`} />
-              <label htmlFor={`filled-in-box-${recipe.key}`} />
-              <div>{recipe.name}</div>
-            </li>
-          ))}
-        </ul>
-        <div className="row">
-          <div className="col s6 center-align">
-            <a className="btn red darken-1">Clear List</a>
+        <div className="grocery-list-content">
+          <div className="row">
+            <i className="material-icons right" onClick={() => this.props.groceryListToggle()}>
+              keyboard_arrow_down
+            </i>
           </div>
-          <div className="col s6 center-align">
-            <a className="btn">Save List</a>
+          <h4>Add Items to Your Grocery List</h4>
+          <ul className="collection">
+            {this.props.recipes.map(recipe => (
+              <li className="collection-item" key={recipe.key}>
+                <Checkbox
+                  style={styles.checkbox}
+                  label={recipe.name}
+                />
+              </li>
+            ))}
+          </ul>
+          <div className="row">
+            <div className="col s6 center-align">
+              <a className="btn red darken-1">Clear List</a>
+            </div>
+            <div className="col s6 center-align">
+              <a className="btn">Save List</a>
+            </div>
           </div>
         </div>
       </div>

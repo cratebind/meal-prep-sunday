@@ -511,6 +511,20 @@
     .grocery-list-form .collection-item [type="checkbox"] + label {
       height: 21px; }
 
+.grocery-list-form {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center; }
+
+.grocery-list-content {
+  max-width: 1000px; }
+
+body {
+  overflow-y: hidden;
+  height: 100vh;
+  width: 100vw; }
+
 p {
   line-height: 2rem; }
 

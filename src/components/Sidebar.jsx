@@ -18,7 +18,7 @@ class Sidebar extends Component {
             className="active btn-flat"
             onClick={() => this.props.groceryListToggle()}
           >
-            New Grocery List
+            New List
             <i className="material-icons right">shopping_cart</i>
           </a>
         </li>

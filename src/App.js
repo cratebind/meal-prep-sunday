@@ -3,6 +3,8 @@ import './App.css';
 import base from './base';
 // import sampleRecipes from './sample-recipes';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import AppBar from './components/AppBar';
 import Recipe from './components/Recipe';
 import Sidebar from './components/Sidebar';
@@ -17,7 +19,7 @@ class App extends Component {
     activeRecipe: -1,
     recipeView: true,
     groceryListView: false,
-  }
+  };
 
   componentWillMount() {
     // this runs right before the <App> is rendered
@@ -25,42 +27,44 @@ class App extends Component {
       this.ref = base.syncState(`${this.props.user.uid}/recipes`, {
         context: this,
         state: 'recipes',
-        asArray: true
+        asArray: true,
       });
     }
   }
 
-  changeRecipe = (newRecipe) => {
+  changeRecipe = newRecipe => {
     // change active recipe
     this.setState({ activeRecipe: parseInt(newRecipe, 10) });
-    
+
     // change view to recipe on mobile
     this.toggleView();
-  }
+  };
 
-  addRecipe = (newRecipe) => {
+  addRecipe = newRecipe => {
     const recipes = this.state.recipes;
 
-    foodAPI.getAisle(newRecipe.ingredients).then(result => {
-      newRecipe.ingredients = result;
+    foodAPI
+      .getAisle(newRecipe.ingredients)
+      .then(result => {
+        newRecipe.ingredients = result;
 
-      recipes.push(newRecipe);
-      
-      this.setState({ recipes });
-  
-      this.toggleView();
-      
-    }).catch(error => {
-      console.log(error);
-    });
-  }
+        recipes.push(newRecipe);
 
-  removeRecipe = (recipeIndex) => {
+        this.setState({ recipes });
+
+        this.toggleView();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  removeRecipe = recipeIndex => {
     if (recipeIndex && this.state.recipes.length > 1) {
       const recipes = this.state.recipes;
-  
+
       recipes.splice(recipeIndex, 1);
-  
+
       this.setState({ recipes });
 
       this.toggleView();
@@ -71,78 +75,84 @@ class App extends Component {
 
       this.toggleView();
     }
-  }
+  };
 
-  updateRecipe = (updatedRecipe) => {
+  updateRecipe = updatedRecipe => {
     console.log(updatedRecipe);
     const recipes = this.state.recipes;
 
     recipes[updatedRecipe.key] = updatedRecipe;
     this.setState({ recipes });
-  }
+  };
 
   // toggle recipe list / detail view on mobile
   toggleView = () => {
     const recipeView = !this.state.recipeView;
     this.setState({ recipeView: recipeView });
-  }
+  };
 
   render() {
     const recipeViewStyleClass = this.state.recipeView ? 'active' : 'inactive';
     const groceryListView = this.state.groceryListView ? 'active' : 'inactive';
     if (this.props.user) {
       return (
-        <div>
-        <AppBar user={this.props.user} logout={this.props.logout}/>
-          <div className="App">
-            <div className="fluid-container">
-              <div className={`row main-view ${recipeViewStyleClass}`}>
-                <div className="col s12 m3 tab-section">
-                  <Sidebar
-                    recipes={this.state.recipes}
-                    changeRecipe={this.changeRecipe}
-                    groceryListToggle={() => this.setState({ groceryListView: !this.state.groceryListView })}
-                  />
-                </div>
-                <div className="col s12 m9 content-section">
-                  <div className="tab-view-button" onClick={() => this.toggleView()}>
-                    <i className="material-icons">arrow_back</i>
-                    <div>Back</div>
-                  </div>
-                  <AddRecipeForm
-                    addRecipe={this.addRecipe}
-                    activeRecipe={this.state.activeRecipe}
-                  />
-                  {Object.keys(this.state.recipes).map(key => (
-                    <Recipe
-                      key={key}
-                      index={parseInt(key, 10)}
-                      activeRecipe={this.state.activeRecipe}
-                      recipe={this.state.recipes[key]}
+        <MuiThemeProvider>
+          <div>
+            <AppBar user={this.props.user} logout={this.props.logout} />
+            <div className="App">
+              <div className="fluid-container">
+                <div className={`row main-view ${recipeViewStyleClass}`}>
+                  <div className="col s12 m3 tab-section">
+                    <Sidebar
+                      recipes={this.state.recipes}
                       changeRecipe={this.changeRecipe}
-                      removeRecipe={this.removeRecipe}
-                      updateRecipe={this.updateRecipe}
+                      groceryListToggle={() =>
+                        this.setState({ groceryListView: !this.state.groceryListView })
+                      }
                     />
-                  ))}
+                  </div>
+                  <div className="col s12 m9 content-section">
+                    <div className="tab-view-button" onClick={() => this.toggleView()}>
+                      <i className="material-icons">arrow_back</i>
+                      <div>Back</div>
+                    </div>
+                    <AddRecipeForm
+                      addRecipe={this.addRecipe}
+                      activeRecipe={this.state.activeRecipe}
+                    />
+                    {Object.keys(this.state.recipes).map(key => (
+                      <Recipe
+                        key={key}
+                        index={parseInt(key, 10)}
+                        activeRecipe={this.state.activeRecipe}
+                        recipe={this.state.recipes[key]}
+                        changeRecipe={this.changeRecipe}
+                        removeRecipe={this.removeRecipe}
+                        updateRecipe={this.updateRecipe}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
+            <GroceryListForm
+              active={groceryListView}
+              recipes={this.state.recipes}
+              groceryListToggle={() =>
+                this.setState({ groceryListView: !this.state.groceryListView })
+              }
+            />
           </div>
-          <GroceryListForm
-            active={groceryListView}
-            recipes={this.state.recipes}
-            groceryListToggle={() => this.setState({ groceryListView: !this.state.groceryListView })}
-          />
-        </div>
-      )
+        </MuiThemeProvider>
+      );
     }
 
     return (
       <div>
-        <AppBar user={this.props.user} logout={this.props.logout}/>
-        <LandingPage />  
+        <AppBar user={this.props.user} logout={this.props.logout} />
+        <LandingPage />
       </div>
-    )
+    );
   }
 }
 

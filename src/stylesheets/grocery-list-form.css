@@ -16,3 +16,12 @@
     align-items: center; }
     .grocery-list-form .collection-item [type="checkbox"] + label {
       height: 21px; }
+
+.grocery-list-form {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center; }
+
+.grocery-list-content {
+  max-width: 1000px; }
