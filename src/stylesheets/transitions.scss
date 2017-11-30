@@ -22,21 +22,12 @@
 
 // ingredient list animations
 .ingredient-list-enter {
-  // opacity: 0.01;
-  // transform: translateX(100%);
   height: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
 .ingredient-list-enter.ingredient-list-enter-active {
-  // opacity: 1;
-  // transform: translateX(0);
-  // transition-property: height;
-  // transition-duration: 400ms;
-  // transition-timing-function: ease;
-  // -webkit-transition-delay: 400ms; /* Safari */
-  // transition-delay: 400ms;
   transition: all 400ms ease;
   height: 43px;
   padding-top: 10px;

@@ -86,7 +86,7 @@ class AddRecipeForm extends Component {
                       <textarea
                         className="materialize-textarea"
                         id="paste-recipe-textarea"
-                        placeholder="Paste Your Recipe Here"
+                        placeholder="Enter Ingredients (Items separated by line breaks)"
                       />
                     </div>
                 }
@@ -117,7 +117,7 @@ class AddRecipeForm extends Component {
                     id="paste-recipe-button"
                     onClick={() => this.setState({ bulkAddMode: !this.state.bulkAddMode })}
                   >
-                    Paste Recipe
+                    Bulk Add Items
                   </button>
                 </div>
               </div>
