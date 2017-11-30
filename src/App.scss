@@ -11,34 +11,47 @@ body {
   width: 100vw;
 }
 
+.App {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 p {
-  line-height: 2rem; }
+  line-height: 2rem;
+}
 
 .button-collapse {
-  color: #26a69a; }
+  color: #26a69a;
+}
 
 .parallax-container {
   min-height: 380px;
   line-height: 0;
   height: auto;
-  background: #1F1C2C;
-  background: -webkit-linear-gradient(to right, #1F1C2C, #928dab);
-  background: -moz-linear-gradient(to right, #1F1C2C, #928dab);
-  background: linear-gradient(to right, #1F1C2C, #928dab); }
+  background: #1f1c2c;
+  background: -webkit-linear-gradient(to right, #1f1c2c, #928dab);
+  background: -moz-linear-gradient(to right, #1f1c2c, #928dab);
+  background: linear-gradient(to right, #1f1c2c, #928dab);
+}
 
 .parallax-container .section {
-  width: 100%; }
+  width: 100%;
+}
 
 @media only screen and (max-width: 768px) {
   .parallax-container .section {
     position: absolute;
-    top: 40%; }
+    top: 40%;
+  }
   #index-banner .section {
-    top: 10%; } }
+    top: 10%;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   #index-banner .section {
-    top: 0; }
+    top: 0;
+  }
 }
 
 .icon-block {
@@ -54,7 +67,7 @@ footer.page-footer {
 }
 
 h5 {
-  color: #FFF;
+  color: #fff;
 }
 
 .user-container .col.s12 {
@@ -69,7 +82,7 @@ h5 {
 }
 
 .collapsible-body {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .card {
@@ -84,7 +97,13 @@ h5 {
 }
 
 nav {
-  background: -webkit-gradient(linear, left top, right top, from(#0077aa), to(#19aaaa));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#0077aa),
+    to(#19aaaa)
+  );
   box-shadow: none;
 }
 
@@ -99,18 +118,19 @@ nav {
 .tab-section {
   border-right: 1px solid #e0e0e0;
   padding: 0px !important;
-  
+
   .indicator {
     display: none !important;
   }
 
   .tab a {
-    color: rgba(0,0,0,0.87);
+    color: rgba(0, 0, 0, 0.87);
   }
 
-  .tab a.active, .tab a:hover {
+  .tab a.active,
+  .tab a:hover {
     background-color: #ddd;
-    color: rgba(0,0,0,0.87);
+    color: rgba(0, 0, 0, 0.87);
   }
 
   .tabs {
@@ -122,7 +142,7 @@ nav {
 }
 
 .row .content-section {
-  padding-top: 15px ;
+  padding-top: 15px;
 }
 
 .fluid-container > .row {
@@ -130,7 +150,7 @@ nav {
 }
 
 .button-collapse {
-  color: #FFF;
+  color: #fff;
 }
 
 #toast-container {

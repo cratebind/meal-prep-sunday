@@ -56,7 +56,7 @@ class Recipe extends Component {
                 onClick={() => this.props.removeRecipe(this.props.index)}
               >
                 Delete
-                <i class="material-icons right">delete_forever</i>
+                <i className="material-icons right">delete_forever</i>
               </button>
             </div>
           </div>

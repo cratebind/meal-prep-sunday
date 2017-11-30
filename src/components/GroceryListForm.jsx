@@ -20,7 +20,6 @@ class GroceryListForm extends Component {
         maxWidth: 250,
       },
       checkbox: {
-        marginBottom: 16,
       },
     };
 
@@ -38,7 +37,6 @@ class GroceryListForm extends Component {
               <li className="collection-item" key={recipe.key}>
                 <Checkbox
                   onCheck={this.updateCheck.bind(this)}
-                  checked={this.state.checked}
                   style={styles.checkbox}
                   label={recipe.name}
                 />
