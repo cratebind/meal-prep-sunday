@@ -6,44 +6,45 @@ class GroceryList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      ingredients: [],
-      receivedData: false,
-    };
+    this.combinedIngredients = this.combinedIngredients.bind(this);
+    this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
-  componentDidUpdate() {
-    // if (!this.state.receivedData) {
-    //   console.log(this.props);
-    //   this.updateIngredients();
-    // }
-  }
+  // componentDidUpdate() {
+  //   // if (!this.state.receivedData) {
+  //   //   console.log(this.props);
+  //   //   this.updateIngredients();
+  //   // }
+  // }
   
-  componentDidMount() {
-    this.combinedIngredients();
-  }
+  // componentDidMount() {
+  //   this.combinedIngredients();
+  // }
 
-  // updateIngredients = () => {
-  //   if (this.props.recipes.length > 0) {
-  //     this.combinedIngredients();
-  //     this.setState({ receivedData: true });
-  //   }
-  // };
+  updateGroceryList = () => {
+    // if (this.props.recipes.length > 0) {
+    //   this.combinedIngredients();
+    //   this.setState({ receivedData: true });
+    // }
+  };
 
-  toggleCompleted = index => {
-    const ingredients = this.state.ingredients;
+  toggleCompleted = (index, ingredient) => {
+
+    const recipes = this.props.recipes;
 
     // if the item is marked as completed, make it false
-    if (ingredients[index].completed) {
-      ingredients[index].completed = false;
+    if (recipes[index].completed) {
+      recipes[index].completed = false;
     } else {
-      ingredients[index].completed = true;
+      recipes[index].completed = true;
     }
 
-    // update ingredient state in app.js
-    this.setState({ ingredients });
+    const recipeIndex = this.props.index.replace('g', '');
 
-    // this.setState({ ingredients });
+    console.log(recipes);
+
+    // update ingredient state in app.js
+    this.props.updateGroceryList(recipes, recipeIndex);
   };
 
   combinedIngredients = () => {
@@ -58,13 +59,12 @@ class GroceryList extends Component {
       ingredient.key = index;
     })
 
-    this.setState({ ingredients: combinedIngredients });
+    return combinedIngredients;
   };
 
   render() {
     let sortedIngredients = {};
-    this.state.ingredients.forEach(ingredient => {
-      ingredient.completed = false;
+    this.props.recipes.forEach(ingredient => {
       if (sortedIngredients[ingredient.aisle] === undefined) {
         sortedIngredients[ingredient.aisle] = [ingredient];
       } else {
@@ -102,6 +102,33 @@ class GroceryList extends Component {
               </ul>
             );
           })}
+          <div className="row">
+            <div className="col s12 m6 completed-container">
+              <ul className="collection with-header">
+                <li className="collection-header">
+                  <h4>Completed</h4>
+                </li>
+                <ReactCSSTransitionGroup
+                  transitionName="ingredient-list"
+                  transitionEnterTimeout={400}
+                  transitionLeaveTimeout={400}
+                >
+                  {this.props.recipes.map((ingredient, index) => {
+                    if (ingredient.completed) {
+                      return (
+                        <Ingredient
+                          ingredient={ingredient}
+                          onClick={() => this.toggleCompleted(index)}
+                          key={index}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+                </ReactCSSTransitionGroup>
+              </ul>
+            </div>
+          </div>
         </div>
       );
     } else {

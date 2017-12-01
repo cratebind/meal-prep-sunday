@@ -20,7 +20,7 @@ class App extends Component {
     activeRecipe: -1,
     recipeView: true,
     groceryListView: false,
-    groceryLists: []
+    groceryLists: [],
   };
 
   componentWillMount() {
@@ -84,7 +84,7 @@ class App extends Component {
     }
   };
 
-  updateRecipe = (updatedRecipe) => {
+  updateRecipe = updatedRecipe => {
     console.log(updatedRecipe);
     const recipes = this.state.recipes;
 
@@ -92,12 +92,32 @@ class App extends Component {
     this.setState({ recipes });
   };
 
+  updateGroceryList = (recipes, recipeIndex) => {
+    recipeIndex = parseInt(recipeIndex, 10);
+    const groceryLists = this.state.groceryLists;
+    groceryLists[recipeIndex] = recipes;
+    this.setState({ groceryLists });
+  };
+
   saveGroceryList = (newGroceryList) => {
     const groceryLists = this.state.groceryLists;
-    groceryLists.push(newGroceryList);
+    // turn list of recipes into array of ingredients
 
-    this.setState({ groceryLists});
-  }
+    let allIngredients = [];
+    newGroceryList.forEach(recipe => {
+      recipe.ingredients.forEach((ingredient, index) => {
+        allIngredients.push(ingredient);
+      });
+    });
+
+    allIngredients.forEach((ingredient, index) => {
+      ingredient.key = index;
+    })
+
+    groceryLists.push(allIngredients);
+
+    this.setState({ groceryLists });
+  };
 
   // toggle recipe list / detail view on mobile
   toggleView = () => {
@@ -131,12 +151,18 @@ class App extends Component {
                       <i className="material-icons">arrow_back</i>
                       <div>Back</div>
                     </div>
-                    {
-                      this.state.groceryLists.map((groceryList, index) => {
-                        return <GroceryList key={index} recipes={this.state.groceryLists} activeRecipe={this.state.activeRecipe} index={`g${index}`}/>
-                      })
-                    }
-                    
+                    {this.state.groceryLists.map((groceryList, index) => {
+                      return (
+                        <GroceryList
+                          key={index}
+                          recipes={this.state.groceryLists[index]}
+                          activeRecipe={this.state.activeRecipe}
+                          index={`g${index}`}
+                          updateGroceryList={this.updateGroceryList}
+                        />
+                      );
+                    })}
+
                     <AddRecipeForm
                       addRecipe={this.addRecipe}
                       activeRecipe={this.state.activeRecipe}
