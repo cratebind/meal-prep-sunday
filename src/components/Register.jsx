@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import base from '../base';
 
 class Register extends Component {
@@ -8,6 +9,10 @@ class Register extends Component {
 
     this.authenticate = this.authenticate.bind(this);
     this.authHandler = this.authHandler.bind(this);
+  }
+
+  errorToast = (error) => {
+    toast.error(error);
   }
 
   componentDidMount() {
@@ -36,7 +41,12 @@ class Register extends Component {
         .createUserWithEmailAndPassword(email, password)
         .catch((error) => {
           console.log(error);
+          this.errorToast(error.message);
         });
+    } else if (password !== passConfirm) {
+      this.errorToast('Passwords do not match');
+    } else if (!email) {
+      this.errorToast('Please enter an email');
     }
   }
 
@@ -120,6 +130,16 @@ class Register extends Component {
               </form>
             </div>
           </div>
+          <ToastContainer
+            toastClassName='warning-toast'
+            position='top-right'
+            type='default'
+            autoClose={50000000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            pauseOnHover
+          />
         </div>
       );
     }
