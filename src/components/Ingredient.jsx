@@ -9,7 +9,7 @@ class Ingredient extends Component {
         key={details.key}
         onClick={this.props.onClick.bind(this, this.props.onClick)}
       >
-        {details.ingredientName ? details.ingredientName : details.name}
+        {details.ingredientName ? details.ingredientName : details}
       </li>
     );
   }

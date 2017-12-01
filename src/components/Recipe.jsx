@@ -64,32 +64,38 @@ class Recipe extends Component {
             <div className="col s12 m6">
               <h4>{details.name}</h4>
               {Object.keys(sortedIngredients).map((key, index) => {
-                // const aisle = sortedIngredients[key];
-                return (
-                  <ul className="collection with-header" key={key}>
-                    <li className="collection-header">
-                      <h4>{key}</h4>
-                    </li>
-                    <ReactCSSTransitionGroup
-                      transitionName="ingredient-list"
-                      transitionEnterTimeout={400}
-                      transitionLeaveTimeout={400}
-                    >
-                      {sortedIngredients[key].map((ingredient, index) => {
-                        if (!ingredient.completed) {
-                          return (
-                            <Ingredient
-                              ingredient={ingredient}
-                              onClick={() => this.toggleCompleted(ingredient.ingredientKey)}
-                              key={index}
-                            />
-                          );
-                        }
-                        return null;
-                      })}
-                    </ReactCSSTransitionGroup>
-                  </ul>
-                );
+                const remainingIngredients = sortedIngredients[key].filter(ingredient => {
+                  return !ingredient.completed                  
+                })
+                if (remainingIngredients.length > 0) {
+                  return (
+                    <ul className="collection with-header" key={key}>
+                      <li className="collection-header">
+                        <h4>{key}</h4>
+                      </li>
+                      <ReactCSSTransitionGroup
+                        transitionName="ingredient-list"
+                        transitionEnterTimeout={400}
+                        transitionLeaveTimeout={400}
+                      >
+                        {sortedIngredients[key].map((ingredient, index) => {
+                          if (!ingredient.completed) {
+                            return (
+                              <Ingredient
+                                ingredient={ingredient}
+                                onClick={() => this.toggleCompleted(ingredient.ingredientKey)}
+                                key={index}
+                              />
+                            );
+                          }
+                          return null;
+                        })}
+                      </ReactCSSTransitionGroup>
+                    </ul>
+                  );
+                } else {
+                  return null;
+                }                
               })}
             </div>
           </div>
