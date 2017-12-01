@@ -35,8 +35,6 @@ class GroceryListForm extends Component {
       },
     };
 
-    const addedRecipes = [];
-
     return (
       <div className={`grocery-list-form ${this.props.active}`}>
         <div className="grocery-list-content">
