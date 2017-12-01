@@ -10,24 +10,6 @@ class GroceryList extends Component {
     this.toggleCompleted = this.toggleCompleted.bind(this);
   }
 
-  // componentDidUpdate() {
-  //   // if (!this.state.receivedData) {
-  //   //   console.log(this.props);
-  //   //   this.updateIngredients();
-  //   // }
-  // }
-  
-  // componentDidMount() {
-  //   this.combinedIngredients();
-  // }
-
-  updateGroceryList = () => {
-    // if (this.props.recipes.length > 0) {
-    //   this.combinedIngredients();
-    //   this.setState({ receivedData: true });
-    // }
-  };
-
   toggleCompleted = (index, ingredient) => {
 
     const recipes = this.props.recipes;
@@ -40,8 +22,6 @@ class GroceryList extends Component {
     }
 
     const recipeIndex = this.props.index.replace('g', '');
-
-    console.log(recipes);
 
     // update ingredient state in app.js
     this.props.updateGroceryList(recipes, recipeIndex);

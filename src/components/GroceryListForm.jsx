@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 
 class GroceryListForm extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
   state = {
     checked: false,
     newGroceryList: [],
@@ -49,7 +45,7 @@ class GroceryListForm extends Component {
               keyboard_arrow_down
             </i>
           </div>
-          <h4>Add Items to Your Grocery List</h4>
+          <h4 className="center-align">Add Items to Your Grocery List</h4>
           <ul className="collection">
             {this.props.recipes.map(recipe => (
               <li className="collection-item" key={recipe.key}>

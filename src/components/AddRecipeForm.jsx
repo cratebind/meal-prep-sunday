@@ -18,11 +18,19 @@ class AddRecipeForm extends Component {
     event.preventDefault();
     console.log('Creating Recipe');
 
+    let newRecipeIngredients;
+
+    if (this.state.bulkAddMode) {
+      newRecipeIngredients = this.bulkAddInput.value.split('\n');
+    } else {
+      newRecipeIngredients = this.state.ingredients;
+    }
+
     const newRecipe = {
       name: this.recipeName.value,
-      ingredients: this.state.ingredients,
+      ingredients: newRecipeIngredients,
     }
-    
+
     if (newRecipe.name && newRecipe.ingredients) {
       this.props.addRecipe(newRecipe);
       this.recipeName.value = '';
@@ -38,15 +46,17 @@ class AddRecipeForm extends Component {
     if (this.newIngredient.value !== '') {
       const ingredients = this.state.ingredients;
       
-      ingredients.push({
-        completed: false,
-        ingredientName: this.newIngredient.value 
-      });
+      ingredients.push(this.newIngredient.value);
   
       this.setState({ ingredients });
   
       this.newIngredient.value = '';
     }
+  }
+
+  toggleBulkAdd = (e) => {
+    e.preventDefault();
+    this.setState({ bulkAddMode: !this.state.bulkAddMode })
   }
 
   render() {
@@ -86,6 +96,7 @@ class AddRecipeForm extends Component {
                       <textarea
                         className="materialize-textarea"
                         id="paste-recipe-textarea"
+                        ref={(input) => this.bulkAddInput = input}
                         placeholder="Enter Ingredients (Items separated by line breaks)"
                       />
                     </div>
@@ -107,15 +118,13 @@ class AddRecipeForm extends Component {
                   <button
                     className="btn waves-effect waves-light"
                     id="save-recipe-button"
-                    type="submit"
-                    name="action"
                   >
                     Save
                   </button>
                   <button
                     className="btn waves-effect waves-light"
                     id="paste-recipe-button"
-                    onClick={() => this.setState({ bulkAddMode: !this.state.bulkAddMode })}
+                    onClick={(e) => this.toggleBulkAdd(e)}
                   >
                     Bulk Add Items
                   </button>

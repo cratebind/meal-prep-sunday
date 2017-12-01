@@ -8,6 +8,7 @@ import {
 import './index.css';
 import App from './App';
 import LoginPage from './components/LoginPage';
+import Register from './components/Register';
 import base from './base';
 
 class Root extends Component {
@@ -44,6 +45,9 @@ class Root extends Component {
           )}/>
           <Route exact path='/login' render={(props) => (
             <LoginPage loginUser={this.loginUser} user={this.state.user} {...props} />
+          )}/>
+          <Route exact path='/register' render={(props) => (
+            <Register loginUser={this.loginUser} user={this.state.user} {...props} />
           )}/>
         </div>
       </Router>

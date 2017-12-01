@@ -11,13 +11,15 @@ function bulkRequest(items) {
   return new Promise((resolve, reject) => {
     const promises = items.map((item, index)=> {
       return new Promise((resolve, reject) => {
-        var params = querystring.stringify({ ingredientList: item.ingredientName });
+        var params = querystring.stringify({ ingredientList: item });
         
         axios.post('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/parseIngredients?includeNutrition=false', params)
           .then((resp) => {
+            debugger
+            var aisle = resp.data[0] ? resp.data[0].aisle : 'N/A'
             resolve({
-              ingredientName: item.ingredientName,
-              aisle: resp.data[0].aisle,
+              ingredientName: item,
+              aisle: aisle,
               completed: false,
               ingredientKey: index
             });

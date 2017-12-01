@@ -24,3 +24,9 @@
       height: 21px; }
   .grocery-list-form label {
     font-size: 16px; }
+
+@media screen and (min-width: 768px) {
+  .grocery-list-form {
+    width: 75vw;
+    top: 64px;
+    right: 0; } }
