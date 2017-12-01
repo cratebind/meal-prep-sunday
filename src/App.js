@@ -41,7 +41,7 @@ class App extends Component {
 
   changeRecipe = newRecipe => {
     // change active recipe
-    this.setState({ activeRecipe: parseInt(newRecipe, 10) });
+    this.setState({ activeRecipe: newRecipe });
 
     // change view to recipe on mobile
     this.toggleView();
@@ -131,22 +131,27 @@ class App extends Component {
                       <i className="material-icons">arrow_back</i>
                       <div>Back</div>
                     </div>
-                    <GroceryList recipes={this.state.groceryLists}/>
-                    {/* <AddRecipeForm
+                    {
+                      this.state.groceryLists.map((groceryList, index) => {
+                        return <GroceryList key={index} recipes={this.state.groceryLists} activeRecipe={this.state.activeRecipe} index={`g${index}`}/>
+                      })
+                    }
+                    
+                    <AddRecipeForm
                       addRecipe={this.addRecipe}
                       activeRecipe={this.state.activeRecipe}
-                    /> */}
-                    {/* {Object.keys(this.state.recipes).map(key => (
+                    />
+                    {Object.keys(this.state.recipes).map(key => (
                       <Recipe
                         key={key}
-                        index={parseInt(key, 10)}
+                        index={key}
                         activeRecipe={this.state.activeRecipe}
                         recipe={this.state.recipes[key]}
                         changeRecipe={this.changeRecipe}
                         removeRecipe={this.removeRecipe}
                         updateRecipe={this.updateRecipe}
                       />
-                    ))} */}
+                    ))}
                   </div>
                 </div>
               </div>

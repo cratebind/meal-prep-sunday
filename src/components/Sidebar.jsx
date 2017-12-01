@@ -26,7 +26,7 @@ class Sidebar extends Component {
         <li className="tab tab-header-section">Grocery Lists</li>
         {this.props.groceryLists.map((groceryList, index) => (
           <li key={index} className="tab">
-            <a>Grocery List 1</a>
+            <a onClick={() => this.props.changeRecipe(`g${index}`)}>Grocery List {index}</a>
           </li>
         ))}
         <li className="tab tab-header-section">Recipes</li>

@@ -13,26 +13,51 @@ class GroceryList extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.state.receivedData) {
-      console.log(this.props);
-      this.updateIngredients();
-    }
+    // if (!this.state.receivedData) {
+    //   console.log(this.props);
+    //   this.updateIngredients();
+    // }
+  }
+  
+  componentDidMount() {
+    this.combinedIngredients();
   }
 
-  updateIngredients = () => {
-    if (this.props.recipes.length > 0) {
-      this.combinedIngredients();
-      this.setState({ receivedData: true });
+  // updateIngredients = () => {
+  //   if (this.props.recipes.length > 0) {
+  //     this.combinedIngredients();
+  //     this.setState({ receivedData: true });
+  //   }
+  // };
+
+  toggleCompleted = index => {
+    const ingredients = this.state.ingredients;
+
+    // if the item is marked as completed, make it false
+    if (ingredients[index].completed) {
+      ingredients[index].completed = false;
+    } else {
+      ingredients[index].completed = true;
     }
+
+    // update ingredient state in app.js
+    this.setState({ ingredients });
+
+    // this.setState({ ingredients });
   };
 
   combinedIngredients = () => {
     let combinedIngredients = [];
     this.props.recipes[0].forEach(recipe => {
-      recipe.ingredients.forEach(ingredient => {
+      recipe.ingredients.forEach((ingredient, index) => {
         combinedIngredients.push(ingredient);
       });
     });
+
+    combinedIngredients.forEach((ingredient, index) => {
+      ingredient.key = index;
+    })
+
     this.setState({ ingredients: combinedIngredients });
   };
 
@@ -47,38 +72,41 @@ class GroceryList extends Component {
       }
     });
 
-    return (
-      <div>
-        {Object.keys(sortedIngredients).map((key, index) => {
-          // const aisle = sortedIngredients[key];
-          return (
-            <ul className="collection with-header" key={key}>
-              <li className="collection-header">
-                <h4>{key}</h4>
-              </li>
-              <ReactCSSTransitionGroup
-                transitionName="ingredient-list"
-                transitionEnterTimeout={400}
-                transitionLeaveTimeout={400}
-              >
-                {sortedIngredients[key].map((ingredient, index) => {
-                  if (!ingredient.completed) {
-                    return (
-                      <Ingredient
-                        ingredient={ingredient}
-                        onClick={() => this.toggleCompleted(ingredient.ingredientKey)}
-                        key={index}
-                      />
-                    );
-                  }
-                  return null;
-                })}
-              </ReactCSSTransitionGroup>
-            </ul>
-          );
-        })}
-      </div>
-    );
+    if (this.props.index === this.props.activeRecipe) {
+      return (
+        <div>
+          {Object.keys(sortedIngredients).map((key, index) => {
+            return (
+              <ul className="collection with-header" key={key}>
+                <li className="collection-header">
+                  <h4>{key}</h4>
+                </li>
+                <ReactCSSTransitionGroup
+                  transitionName="ingredient-list"
+                  transitionEnterTimeout={400}
+                  transitionLeaveTimeout={400}
+                >
+                  {sortedIngredients[key].map((ingredient, index) => {
+                    if (!ingredient.completed) {
+                      return (
+                        <Ingredient
+                          ingredient={ingredient}
+                          onClick={() => this.toggleCompleted(ingredient.key)}
+                          key={ingredient.key}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+                </ReactCSSTransitionGroup>
+              </ul>
+            );
+          })}
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
