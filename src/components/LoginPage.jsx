@@ -37,10 +37,10 @@ class LoginPage extends Component {
 
   signIn(e) {
     e.preventDefault();
-    const email = this.email.value
-    const password = this.password.value
+    const email = this.email.value;
+    const password = this.password.value;
     console.log(email, password);
-    base.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    base.auth().signInWithEmailAndPassword(email, password).catch((error) => {
       console.log(error);
     });
   }
@@ -50,7 +50,6 @@ class LoginPage extends Component {
       console.error(err);
       return err;
     }
-    // console.log(authData);
     this.props.loginUser(authData.user);
   }
 
@@ -70,13 +69,13 @@ class LoginPage extends Component {
                       </div>
                     </div>
                     <div className="input-field col s12">
-                      <input name="password" id="password" type="password" className="validate" ref={(input) => this.password = input}/>
+                      <input name="password" id="password" type="password" className="validate" ref={input => this.password = input} />
                       <label htmlFor="password">Password</label>
                     </div>
                   </div>
                   <div className="card-action">
                     <div className="row">
-                      <button className="btn waves-effect waves-light" onClick={(e) => this.signIn(e)}>
+                      <button className="btn waves-effect waves-light" onClick={e => this.signIn(e)}>
                         Login
                       </button>
                     </div>
@@ -89,12 +88,12 @@ class LoginPage extends Component {
                       </a>
                     </div>
                     <div style={{ marginBottom: 15 }}>
-                      <a
+                      <button
                         className="waves-effect waves-light btn social facebook"
                         onClick={() => this.authenticate('facebook')}
                       >
                         <i className="fa fa-facebook" /> Sign in with facebook
-                      </a>
+                      </button>
                     </div>
                     <div>
                       <a
