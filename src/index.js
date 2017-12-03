@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
+import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
 import App from './App';
@@ -17,10 +18,10 @@ class Root extends Component {
 
     this.loginUser = this.loginUser.bind(this);
     this.logout = this.logout.bind(this);
-  }
 
-  state = {
-    user: null
+    this.state = {
+      user: null
+    }
   }
 
   loginUser(user) {
@@ -56,3 +57,4 @@ class Root extends Component {
 }
 
 ReactDOM.render(<Root />, document.querySelector('#root'));
+registerServiceWorker();

@@ -19,7 +19,7 @@ class AppBar extends React.Component {
             <a href="/register">Sign Up</a>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <a href="/login">Login</a>
           </li>
         </ul>
       );
@@ -41,7 +41,7 @@ class AppBar extends React.Component {
             <a href="/register">Sign Up</a>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <a href="/login">Login</a>
           </li>
         </ul>
       );

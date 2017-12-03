@@ -15,14 +15,17 @@ import GroceryList from './components/GroceryList';
 import foodAPI from './api/foodAPI';
 
 class App extends Component {
-  state = {
-    recipes: [],
-    activeRecipe: -1,
-    recipeView: true,
-    groceryListView: false,
-    groceryLists: [],
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipes: [],
+      activeRecipe: -1,
+      recipeView: true,
+      groceryListView: false,
+      groceryLists: [],
+    }
+  }
+  
   componentWillMount() {
     // this runs right before the <App> is rendered
     if (this.props.user) {
